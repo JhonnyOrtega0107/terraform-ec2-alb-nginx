@@ -1,6 +1,7 @@
 ##############################################################################
-# variables.tf
-# Todas las variables del proyecto con descripciones y validaciones.
+# variables.tf  –  Root module
+# Solo declara las variables que el root module expone hacia afuera.
+# Cada módulo tiene sus propias variables internas en modules/<name>/variables.tf
 ##############################################################################
 
 # ── General ──────────────────────────────────────────────────────────────────
@@ -49,7 +50,7 @@ variable "private_subnet_cidrs" {
 }
 
 variable "availability_zones" {
-  description = "Zonas de disponibilidad a usar (debe coincidir en cantidad con las subnets)."
+  description = "Zonas de disponibilidad. Debe coincidir en cantidad con las subnets."
   type        = list(string)
   default     = ["us-east-1a", "us-east-1b"]
 }
@@ -63,9 +64,9 @@ variable "instance_type" {
 }
 
 variable "ami_id" {
-  description = "AMI ID para la instancia EC2. Por defecto usa Amazon Linux 2023."
+  description = "AMI ID. Si queda vacío se resuelve automáticamente con Amazon Linux 2023."
   type        = string
-  default     = "" # Si queda vacío, se busca automáticamente con data source
+  default     = ""
 }
 
 variable "key_pair_name" {

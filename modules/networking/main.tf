@@ -1,7 +1,6 @@
 ##############################################################################
-# network.tf
-# VPC, subnets públicas y privadas, Internet Gateway, NAT Gateway,
-# y tablas de rutas. Arquitectura de dos capas (pública/privada).
+# modules/networking/main.tf
+# VPC, subnets públicas/privadas, IGW, NAT Gateway y tablas de rutas.
 ##############################################################################
 
 # ── VPC ──────────────────────────────────────────────────────────────────────
@@ -57,7 +56,7 @@ resource "aws_subnet" "private" {
   }
 }
 
-# ── Elastic IP + NAT Gateway (para que la EC2 privada acceda a internet) ───────
+# ── Elastic IP + NAT Gateway ──────────────────────────────────────────────────
 
 resource "aws_eip" "nat" {
   domain = "vpc"
@@ -71,7 +70,7 @@ resource "aws_eip" "nat" {
 
 resource "aws_nat_gateway" "main" {
   allocation_id = aws_eip.nat.id
-  subnet_id     = aws_subnet.public[0].id # NAT siempre en subnet pública
+  subnet_id     = aws_subnet.public[0].id
 
   tags = {
     Name = "${var.project_name}-${var.environment}-nat-gw"

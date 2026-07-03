@@ -1,44 +1,50 @@
 ##############################################################################
-# outputs.tf
-# Valores útiles que se muestran tras un terraform apply exitoso.
+# outputs.tf  –  Root module
+# Agrega los outputs de todos los módulos en un solo lugar.
 ##############################################################################
 
-output "alb_dns_name" {
-  description = "DNS público del Application Load Balancer. Úsalo en el navegador."
-  value       = "http://${aws_lb.main.dns_name}"
+# ── ALB ──────────────────────────────────────────────────────────────────────
+
+output "alb_url" {
+  description = "URL pública del Application Load Balancer. Abre esto en el navegador."
+  value       = "http://${module.alb.alb_dns_name}"
 }
 
 output "alb_arn" {
   description = "ARN del Application Load Balancer."
-  value       = aws_lb.main.arn
+  value       = module.alb.alb_arn
 }
+
+# ── EC2 ──────────────────────────────────────────────────────────────────────
 
 output "ec2_instance_id" {
   description = "ID de la instancia EC2."
-  value       = aws_instance.web.id
+  value       = module.ec2.instance_id
 }
 
 output "ec2_private_ip" {
   description = "IP privada de la instancia EC2."
-  value       = aws_instance.web.private_ip
-}
-
-output "vpc_id" {
-  description = "ID de la VPC creada."
-  value       = aws_vpc.main.id
-}
-
-output "public_subnet_ids" {
-  description = "IDs de las subnets públicas."
-  value       = aws_subnet.public[*].id
-}
-
-output "private_subnet_ids" {
-  description = "IDs de las subnets privadas."
-  value       = aws_subnet.private[*].id
+  value       = module.ec2.private_ip
 }
 
 output "ami_used" {
   description = "AMI utilizada en la instancia EC2."
-  value       = local.resolved_ami
+  value       = module.ec2.ami_used
+}
+
+# ── Red ──────────────────────────────────────────────────────────────────────
+
+output "vpc_id" {
+  description = "ID de la VPC creada."
+  value       = module.networking.vpc_id
+}
+
+output "public_subnet_ids" {
+  description = "IDs de las subnets públicas."
+  value       = module.networking.public_subnet_ids
+}
+
+output "private_subnet_ids" {
+  description = "IDs de las subnets privadas."
+  value       = module.networking.private_subnet_ids
 }

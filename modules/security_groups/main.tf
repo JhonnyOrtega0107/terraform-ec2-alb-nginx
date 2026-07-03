@@ -1,8 +1,8 @@
 ##############################################################################
-# security_groups.tf
+# modules/security_groups/main.tf
 # Principio de mínimo privilegio:
-#   - ALB SG: acepta HTTP/HTTPS desde internet.
-#   - EC2 SG: acepta HTTP solo desde el ALB SG (no expuesto a internet).
+#   - ALB SG : acepta HTTP/HTTPS desde internet.
+#   - EC2 SG : acepta HTTP solo desde el ALB SG (no expuesto a internet).
 ##############################################################################
 
 # ── Security Group del ALB ────────────────────────────────────────────────────
@@ -10,7 +10,7 @@
 resource "aws_security_group" "alb" {
   name        = "${var.project_name}-${var.environment}-alb-sg"
   description = "Permite trafico HTTP/HTTPS entrante desde internet hacia el ALB."
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = var.vpc_id
 
   tags = {
     Name = "${var.project_name}-${var.environment}-alb-sg"
@@ -47,7 +47,7 @@ resource "aws_vpc_security_group_egress_rule" "alb_egress" {
 resource "aws_security_group" "ec2" {
   name        = "${var.project_name}-${var.environment}-ec2-sg"
   description = "Permite HTTP solo desde el ALB. Sin acceso directo desde internet."
-  vpc_id      = aws_vpc.main.id
+  vpc_id      = var.vpc_id
 
   tags = {
     Name = "${var.project_name}-${var.environment}-ec2-sg"
@@ -72,7 +72,7 @@ resource "aws_vpc_security_group_ingress_rule" "ec2_ssh" {
   from_port         = 22
   to_port           = 22
   ip_protocol       = "tcp"
-  cidr_ipv4         = "0.0.0.0/0" # Cambia a tu IP en entornos reales
+  cidr_ipv4         = "0.0.0.0/0"
 }
 
 resource "aws_vpc_security_group_egress_rule" "ec2_egress" {
