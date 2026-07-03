@@ -77,7 +77,7 @@ variable "key_pair_name" {
 variable "root_volume_size" {
   description = "Tamaño del volumen raíz de la EC2 en GiB."
   type        = number
-  default     = 20
+  default     = 30
 }
 
 # ── ALB ──────────────────────────────────────────────────────────────────────
