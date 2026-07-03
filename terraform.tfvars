@@ -16,7 +16,7 @@ availability_zones   = ["us-east-1a", "us-east-1b"]
 # EC2
 instance_type    = "t3.micro"
 root_volume_size = 30
-key_pair_name    = ""   # Pon aquí el nombre de tu key pair si necesitas SSH
+key_pair_name    = "" # Pon aquí el nombre de tu key pair si necesitas SSH
 
 # ALB
 health_check_path       = "/"
