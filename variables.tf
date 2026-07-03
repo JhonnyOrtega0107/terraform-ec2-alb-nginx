@@ -65,7 +65,7 @@ variable "instance_type" {
 variable "ami_id" {
   description = "AMI ID para la instancia EC2. Por defecto usa Amazon Linux 2023."
   type        = string
-  default     = ""   # Si queda vacío, se busca automáticamente con data source
+  default     = "" # Si queda vacío, se busca automáticamente con data source
 }
 
 variable "key_pair_name" {

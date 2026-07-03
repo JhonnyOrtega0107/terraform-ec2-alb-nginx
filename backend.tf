@@ -24,6 +24,6 @@ terraform {
     key          = "ec2-alb-nginx/terraform.tfstate"
     region       = "us-east-1"
     encrypt      = true
-    use_lockfile = true   # Lock nativo en S3, reemplaza dynamodb_table (deprecado)
+    use_lockfile = true # Lock nativo en S3, reemplaza dynamodb_table (deprecado)
   }
 }

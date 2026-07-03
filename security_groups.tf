@@ -72,7 +72,7 @@ resource "aws_vpc_security_group_ingress_rule" "ec2_ssh" {
   from_port         = 22
   to_port           = 22
   ip_protocol       = "tcp"
-  cidr_ipv4         = "0.0.0.0/0"   # Cambia a tu IP en entornos reales
+  cidr_ipv4         = "0.0.0.0/0" # Cambia a tu IP en entornos reales
 }
 
 resource "aws_vpc_security_group_egress_rule" "ec2_egress" {
