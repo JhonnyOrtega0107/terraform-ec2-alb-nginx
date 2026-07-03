@@ -1,0 +1,24 @@
+# Archivos locales de Terraform
+.terraform/
+.terraform.lock.hcl
+
+# Estado local (no subir a VCS cuando se usa backend remoto)
+terraform.tfstate
+terraform.tfstate.backup
+*.tfstate
+*.tfstate.*
+
+# Archivos de variables con secretos
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Crash log
+crash.log
+crash.*.log
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
