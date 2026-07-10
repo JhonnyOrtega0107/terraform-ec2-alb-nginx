@@ -140,7 +140,7 @@ resource "aws_instance" "web" {
   subnet_id              = var.subnet_id
   vpc_security_group_ids = [var.security_group_id]
   iam_instance_profile   = aws_iam_instance_profile.ec2.name
-  key_name               = var.key_pair_name != "" ? var.key_pair_name : null
+  key_name               = trimspace(var.key_pair_name) != "" ? trimspace(var.key_pair_name) : null
 
   user_data                   = base64encode(local.user_data)
   user_data_replace_on_change = true

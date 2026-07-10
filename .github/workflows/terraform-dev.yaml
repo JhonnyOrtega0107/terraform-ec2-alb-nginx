@@ -1,0 +1,62 @@
+name: Terraform Deploy - DEV
+
+on:
+  push:
+    branches:
+      - dev
+  pull_request:
+    branches:
+      - dev
+
+env:
+  AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+  TF_VAR_aws_region: ${{ vars.TF_VAR_aws_region }}
+  TF_VAR_project_name: ${{ vars.TF_VAR_project_name }}
+  TF_VAR_environment: ${{ vars.TF_VAR_environment }}
+  TF_VAR_vpc_cidr: ${{ vars.TF_VAR_vpc_cidr }}
+  TF_VAR_public_subnet_cidrs: ${{ vars.TF_VAR_public_subnet_cidrs }}
+  TF_VAR_private_subnet_cidrs: ${{ vars.TF_VAR_private_subnet_cidrs }}
+  TF_VAR_availability_zones: ${{ vars.TF_VAR_availability_zones }}
+  TF_VAR_instance_type: ${{ vars.TF_VAR_instance_type }}
+  TF_VAR_root_volume_size: ${{ vars.TF_VAR_root_volume_size }}
+  TF_VAR_health_check_path: ${{ vars.TF_VAR_health_check_path }}
+  TF_VAR_alb_deletion_protection: ${{ vars.TF_VAR_alb_deletion_protection }}
+
+jobs:
+  terraform-dev:
+    name: Terraform DEV
+    runs-on: ubuntu-latest
+    environment: dev
+
+    defaults:
+      run:
+        working-directory: enviroments/dev
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "~1.11"
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format Check
+        run: terraform fmt -check
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan
+
+      # Solo aplica en push a dev, no en PRs
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
+        run: terraform apply -auto-approve
+ 

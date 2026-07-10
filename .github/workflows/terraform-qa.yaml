@@ -1,0 +1,50 @@
+name: Terraform Deploy - QA
+
+on:
+  push:
+    branches:
+      - qa
+  pull_request:
+    branches:
+      - qa
+
+env:
+  AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+jobs:
+  terraform-qa:
+    name: Terraform QA
+    runs-on: ubuntu-latest
+    environment: qa
+
+    defaults:
+      run:
+        working-directory: enviroments/qa
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "~1.11"
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format Check
+        run: terraform fmt -check
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan
+
+      # Solo aplica en push a dev, no en PRs
+      - name: Terraform Apply
+        if: github.ref == 'refs/heads/qa' && github.event_name == 'push'
+        run: terraform apply -auto-approve
+ 

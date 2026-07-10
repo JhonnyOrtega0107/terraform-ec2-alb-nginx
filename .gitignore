@@ -10,6 +10,7 @@ terraform.tfstate.backup
 
 # Archivos de variables con secretos
 *.tfvars.json
+*.tfvars
 override.tf
 override.tf.json
 *_override.tf
