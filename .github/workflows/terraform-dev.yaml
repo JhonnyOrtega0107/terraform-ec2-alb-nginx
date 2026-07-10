@@ -21,7 +21,6 @@ env:
   TF_VAR_availability_zones: ${{ vars.TF_VAR_availability_zones }}
   TF_VAR_instance_type: ${{ vars.TF_VAR_instance_type }}
   TF_VAR_root_volume_size: ${{ vars.TF_VAR_root_volume_size }}
-  TF_VAR_key_pair_name: ${{ vars.TF_VAR_key_pair_name }}
   TF_VAR_health_check_path: ${{ vars.TF_VAR_health_check_path }}
   TF_VAR_alb_deletion_protection: ${{ vars.TF_VAR_alb_deletion_protection }}
 

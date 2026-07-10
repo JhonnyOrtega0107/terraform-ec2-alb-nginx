@@ -65,7 +65,7 @@ resource "aws_vpc_security_group_ingress_rule" "ec2_http_from_alb" {
 
 # SSH condicional: solo se abre si se proporcionó un key pair
 resource "aws_vpc_security_group_ingress_rule" "ec2_ssh" {
-  count = var.key_pair_name != "" ? 1 : 0
+  count = trimspace(var.key_pair_name) != "" ? 1 : 0
 
   security_group_id = aws_security_group.ec2.id
   description       = "SSH para administracion (restringir el CIDR en produccion)"
