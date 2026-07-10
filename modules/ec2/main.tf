@@ -86,7 +86,7 @@ locals {
     <body>
       <div class="card">
         <div class="badge">Activo</div>
-        <h1>Hola desde Nginx</h1>
+        <h1>Hola desde Nginx ${var.environment}</h1>
         <p>Servidor web desplegado con <strong>Terraform</strong> en AWS EC2.</p>
         <p>Balanceo de carga a cargo del <strong>Application Load Balancer</strong>.</p>
         <div class="info">

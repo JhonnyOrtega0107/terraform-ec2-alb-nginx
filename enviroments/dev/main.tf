@@ -8,7 +8,7 @@
 # ── 1. Red ────────────────────────────────────────────────────────────────────
 
 module "networking" {
-  source = "./modules/networking"
+  source = "../../modules/networking"
 
   project_name         = var.project_name
   environment          = var.environment
@@ -21,7 +21,7 @@ module "networking" {
 # ── 2. Security Groups ────────────────────────────────────────────────────────
 
 module "security_groups" {
-  source = "./modules/security_groups"
+  source = "../../modules/security_groups"
 
   project_name  = var.project_name
   environment   = var.environment
@@ -32,7 +32,7 @@ module "security_groups" {
 # ── 3. EC2 ───────────────────────────────────────────────────────────────────
 
 module "ec2" {
-  source = "./modules/ec2"
+  source = "../../modules/ec2"
 
   project_name      = var.project_name
   environment       = var.environment
@@ -47,7 +47,7 @@ module "ec2" {
 # ── 4. ALB ───────────────────────────────────────────────────────────────────
 
 module "alb" {
-  source = "./modules/alb"
+  source = "../../modules/alb"
 
   project_name            = var.project_name
   environment             = var.environment

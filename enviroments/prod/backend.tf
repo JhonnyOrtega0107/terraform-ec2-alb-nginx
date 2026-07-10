@@ -21,7 +21,7 @@
 terraform {
   backend "s3" {
     bucket       = "terraform-state-s3-devops-bexty"
-    key          = "ec2-alb-nginx/terraform.tfstate"
+    key          = "ec2-alb-nginx-prod/terraform.tfstate"
     region       = "us-east-1"
     encrypt      = true
     use_lockfile = true # Lock nativo en S3, reemplaza dynamodb_table (deprecado)
