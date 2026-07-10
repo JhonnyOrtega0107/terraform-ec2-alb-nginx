@@ -12,18 +12,6 @@ env:
   AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
-  TF_VAR_aws_region: ${{ vars.TF_VAR_aws_region }}
-  TF_VAR_project_name: ${{ vars.TF_VAR_project_name }}
-  TF_VAR_environment: ${{ vars.TF_VAR_environment }}
-  TF_VAR_vpc_cidr: ${{ vars.TF_VAR_vpc_cidr }}
-  TF_VAR_public_subnet_cidrs: ${{ vars.TF_VAR_public_subnet_cidrs }}
-  TF_VAR_private_subnet_cidrs: ${{ vars.TF_VAR_private_subnet_cidrs }}
-  TF_VAR_availability_zones: ${{ vars.TF_VAR_availability_zones }}
-  TF_VAR_instance_type: ${{ vars.TF_VAR_instance_type }}
-  TF_VAR_root_volume_size: ${{ vars.TF_VAR_root_volume_size }}
-  TF_VAR_health_check_path: ${{ vars.TF_VAR_health_check_path }}
-  TF_VAR_alb_deletion_protection: ${{ vars.TF_VAR_alb_deletion_protection }}
-
 jobs:
   terraform-qa:
     name: Terraform QA
