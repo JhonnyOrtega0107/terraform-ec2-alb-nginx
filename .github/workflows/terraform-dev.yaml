@@ -33,7 +33,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: environments/dev
+        working-directory: enviroments/dev
 
     steps:
       - name: Checkout code
